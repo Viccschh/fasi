@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web-API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      padding: 0;
+    }
+    form {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input, button {
+      margin: 5px 0;
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+    button {
+      cursor: pointer;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Web-API</h1>
+
+  <!-- Regist -->
+  <form id="registerForm">
+    <h2>Registro</h2>
+    <input type="text" id="registerUsername" placeholder="Username" required /><br>
+    <input type="email" id="registerEmail" placeholder="Email" required /><br>
+    <input type="password" id="registerPassword" placeholder="Senha" required /><br>
+    <button type="submit">Registrar User</button>
+  </form>
+
+  <!-- Login -->
+  <form id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Username" required /><br>
+    <input type="password" id="loginPassword" placeholder="Senha" required /><br>
+    <button type="submit">Login</button>
+  </form>
+
+	
+	<!--trash
+
+	<!-- List Users
+  <form id="listUsersForm">
+    <h2>Listar Users</h2>
+    <button type="submit">Trazer Users</button>
+  </form>
+
+  <!-- Get User
+  <form id="getUserForm">
+    <h2>Get User</h2>
+    <input type="number" id="getUserId" placeholder="User ID" required />
+    <button type="submit">Buscar User</button>
+  </form>
+
+  <!-- Delete User
+  <form id="deleteUserForm">
+    <h2>Deletar User</h2>
+    <input type="number" id="deleteUserId" placeholder="User ID" required />
+    <button type="submit">Deletar</button>
+  </form>
+              trash that not work!-->
+
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById('output');
+    let token = null;
+
+    const apiUrl = 'http://127.0.0.1:5000';
+
+    
+    function showOutput(data) {
+      output.textContent = JSON.stringify(data, null, 2);
+    }
+
+    
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('registerUsername').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+
+      const response = await fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+      showOutput(data);
+    });
+
+    
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (data.token) token = data.token;
+      showOutput(data);
+    });
+	  
+	  
+	  
+	  
+	  /* TRASH
+    document.getElementById('listUsersForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!token) return showOutput({ error: 'Você precisa logar primeiro' });
+
+      const response = await fetch(`${apiUrl}/users`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      showOutput(data);
+    });
+	  
+	  
+	  
+    document.getElementById('getUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!token) return showOutput({ error: 'Você precisa logar primeiro' });
+
+      const userId = document.getElementById('getUserId').value;
+
+      const response = await fetch(`${apiUrl}/users/${userId}`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      showOutput(data);
+    });
+	  
+	  
+	  
+    document.getElementById('deleteUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!token) return showOutput({ error: 'Você precisa logar primeiro' });
+
+      const userId = document.getElementById('deleteUserId').value;
+
+      const response = await fetch(`${apiUrl}/users/${userId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      showOutput(data);
+    });
+	
+	  TRASH*/
+	  
+  </script>
+</body>
+</html>
