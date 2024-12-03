@@ -9,11 +9,11 @@
 ## Ativar o ambiente
 Use 
 
-`.venv/Scripts/activate.bat` para o CMD
+`.venv\Scripts\activate.bat` para o CMD
 
 ou
 
-`.venv/Scripts/Activate.ps1` para o PowerShel
+`.venv\Scripts\Activate.ps1` para o PowerShel
 
 ## Instar todas as dependências do projeto
 `pip install -r requirements.txt`
